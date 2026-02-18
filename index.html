@@ -160,7 +160,7 @@
         <div class="max-w-[1800px] mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
             <!-- Logo -->
             <button onclick="navigateTo('home')"
-                class="text-xl md:text-2xl font-bold tracking-tighter hover:opacity-70 transition-opacity z-[70] focus:outline-none uppercase">
+                class="text-lg md:text-2xl font-bold tracking-tighter hover:opacity-70 transition-opacity z-[70] focus:outline-none uppercase">
                 <span data-cms="global.agentName">Ciara Gadier</span>
             </button>
 
@@ -193,7 +193,15 @@
 
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu"
-            class="fixed inset-0 bg-[#1C1C1C] z-[65] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-500 md:hidden">
+            class="fixed inset-0 bg-brand-dark z-[70] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-500 md:hidden">
+            <button class="absolute top-6 right-6 text-white hover:opacity-70 transition-opacity" onclick="toggleMobileMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x">
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                </svg>
+            </button>
             <nav class="flex flex-col gap-10 text-center">
                 <button onclick="navigateTo('home'); toggleMobileMenu()"
                     class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
@@ -238,7 +246,7 @@
                 <div
                     class="md:px-12 flex flex-col z-20 h-full max-w-[1800px] mx-auto relative justify-center px-6 text-white">
                     <h1
-                        class="text-6xl md:text-8xl lg:text-[8rem] font-bold tracking-tighter leading-[0.9] select-none drop-shadow-2xl text-white">
+                        class="text-4xl md:text-8xl lg:text-[8rem] font-bold tracking-tighter leading-[0.9] select-none drop-shadow-2xl text-white">
                         <span class="block opacity-0"
                             style="animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s">
                             <span data-cms="global.agentFirstName">ciara</span>
@@ -266,7 +274,7 @@
                 </div>
             </div>
 
-            <div class="bg-brand-white text-brand-dark py-24 md:py-32">
+            <div class="bg-brand-white text-brand-dark py-12 md:py-32">
                 <div class="md:px-12 reveal-on-scroll max-w-[1800px] mr-auto ml-auto pr-6 pl-6">
                     <h2 class="md:text-6xl lg:text-7xl leading-[1] text-4xl font-semibold tracking-tighter mb-8">
                         <span data-cms="intro.headline">Guiding you home,</span>
@@ -295,7 +303,7 @@
             </div>
 
             <!-- Featured Listing -->
-            <div class="md:px-12 md:py-40 max-w-[1800px] mr-auto ml-auto pt-12 pr-6 pb-32 pl-6">
+            <div class="md:px-12 py-16 md:py-32 max-w-[1800px] mr-auto ml-auto px-6">
                 <div
                     class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-brand-light pb-6 reveal-on-scroll">
                     <h2 class="md:text-5xl text-brand-black text-3xl font-bold tracking-tighter"
@@ -327,7 +335,7 @@
                     <div class="lg:col-span-4 flex flex-col reveal-on-scroll delay-100 pt-4 pb-4 justify-between">
                         <div class="space-y-6">
                             <h3 class="text-2xl font-semibold tracking-tight" data-cms="featured.title">
-                                Modern luxury meets Texas charm.
+                                Modern luxury meets Metro Manila & Cebu charm.
                             </h3>
                             <p class="text-brand-gray leading-relaxed font-normal" data-cms="featured.description">
                                 A spectacular residence in the heart of Metro Manila. Offering expansive outdoor living
@@ -349,7 +357,7 @@
             </div>
 
             <!-- Expertise Areas -->
-            <div class="bg-brand-black py-32 md:py-40 text-white">
+            <div class="bg-brand-black py-16 md:py-40 text-white">
                 <div class="max-w-[1800px] mx-auto px-6 md:px-12">
                     <h2 class="text-sm font-bold uppercase tracking-widest text-white/50 mb-16 reveal-on-scroll"
                         data-cms-template="expertise-heading">Why Work With <span
@@ -415,7 +423,7 @@
             </div>
 
             <!-- Latest Listings Preview -->
-            <div class="max-w-[1800px] mx-auto px-6 md:px-12 py-32 md:py-40">
+            <div class="max-w-[1800px] mx-auto px-6 md:px-12 py-16 md:py-40">
                 <div class="mb-20 max-w-2xl reveal-on-scroll">
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
                         Exclusive Listings
@@ -433,11 +441,11 @@
 
         <!-- PAGE 2: PROFILE (ABOUT) -->
         <section id="about" class="page-section fade-in">
-            <div class="pt-32 pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
-                <div class="mb-16 md:mb-24 reveal-on-scroll overflow-hidden">
+            <div class="pt-20 pb-12 md:pt-32 md:pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
+                <div class="mb-12 md:mb-24 reveal-on-scroll overflow-hidden">
                     <!-- Decorative Background Text -->
                     <span
-                        class="text-[5rem] md:text-[10rem] lg:text-[12rem] font-bold tracking-tighter text-brand-light leading-none select-none block -mb-8 md:-mb-16 opacity-40 uppercase"
+                        class="text-[3rem] md:text-[10rem] lg:text-[12rem] font-bold tracking-tighter text-brand-light leading-none select-none block -mb-4 md:-mb-16 opacity-40 uppercase"
                         data-cms="about.decorativeText">ciara</span>
                     <!-- Main Headline -->
                     <h1 class="relative text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1.1] text-brand-dark"
@@ -469,7 +477,7 @@
                     alt="Professional Context" data-cms-alt="about.profileImageAlt">
             </div>
 
-            <div class="py-32 px-6 md:px-12 max-w-[1800px] mx-auto">
+            <div class="py-16 md:py-32 px-6 md:px-12 max-w-[1800px] mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div class="order-2 lg:order-1 space-y-12 reveal-on-scroll">
                         <h3 class="text-4xl md:text-5xl font-semibold tracking-tighter"
@@ -529,7 +537,7 @@
 
         <!-- PAGE 3: LISTINGS -->
         <section id="listings" class="page-section fade-in">
-            <div class="pt-32 pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
+            <div class="pt-24 pb-12 md:pt-32 md:pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
                 <h1 class="text-6xl md:text-9xl font-semibold tracking-tighter mb-12 text-brand-dark reveal-on-scroll">
                     <span data-cms="listings.pageTitle">Featured</span>
                     <span class="text-brand-gray" data-cms="listings.pageTitleAccent">Listings</span>
@@ -851,8 +859,8 @@
         // --- SCROLL ANIMATION OBSERVER ---
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+            rootMargin: '0px 0px -20px 0px',
+            threshold: 0
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1044,7 +1052,7 @@
                 }
 
                 // Re-init scroll observer for new dynamic elements
-                setTimeout(initObserver, 100);
+                setTimeout(initObserver, 300);
 
             } catch (e) {
                 // CMS not available — site works fine with static content

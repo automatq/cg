@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            color: #111;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .img-preview {
+            max-height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+
+    <!-- Login Gate -->
+    <div id="login-gate" class="flex items-center justify-center min-h-screen">
+        <div class="bg-[#151515] rounded-2xl p-10 w-full max-w-sm border border-white/10">
+            <h1 class="text-2xl font-bold tracking-tight mb-2">Admin Login</h1>
+            <p class="text-white/50 text-sm mb-8">Enter your password to manage site content.</p>
+            <input id="pw-input" type="password" placeholder="Password"
+                class="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-white/30">
+            <button onclick="login()"
+                class="w-full bg-white text-black rounded-lg py-3 font-semibold hover:bg-white/90 transition">
+                Enter
+            </button>
+            <p id="login-error" class="text-red-400 text-sm mt-3 hidden">Incorrect password.</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Top Bar -->
+        <div class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg font-bold tracking-tight">CMS</span>
+                    <span class="text-white/30 text-sm">Content Manager</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="/" target="_blank" class="text-white/50 hover:text-white text-sm transition">View Site
+                        ↗</a>
+                    <button onclick="saveAll()" id="save-btn"
+                        class="bg-white text-black px-6 py-2 rounded-lg font-semibold text-sm hover:bg-white/90 transition flex items-center gap-2">
+                        <span>Save All</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 py-8 flex gap-8">
+            <!-- Sidebar Tabs -->
+            <nav class="w-48 shrink-0 sticky top-24 self-start space-y-1">
+                <button
+                    class="tab-btn active w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="global">Global Info</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="hero">Hero</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="intro">Intro</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="featured">Featured</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="expertise">Expertise</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="listings-preview">Listing Cards</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="about">About / Profile</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="listings">Listings Page</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="compass">JCBO</button>
+                <button
+                    class="tab-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white transition"
+                    data-tab="contact">Contact</button>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="flex-1 min-w-0" id="tab-content">
+                <!-- Tabs are rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let content = {};
+        const password = () => sessionStorage.getItem('admin_pw') || '';
+
+        // ─── LOGIN ───────────────
+        async function login() {
+            const pw = document.getElementById('pw-input').value;
+            try {
+                const res = await fetch('/api/content', { headers: { 'x-admin-password': pw } });
+                // Even GET doesn't need auth, but let's verify PUT works
+                const testRes = await fetch('/api/content', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'x-admin-password': pw },
+                    body: JSON.stringify(await res.json())
+                });
+                if (testRes.ok) {
+                    sessionStorage.setItem('admin_pw', pw);
+                    await loadContent();
+                    document.getElementById('login-gate').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                } else {
+                    document.getElementById('login-error').classList.remove('hidden');
+                }
+            } catch (e) {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('pw-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') login();
+        });
+
+        // ─── CONTENT LOADING ─────
+        async function loadContent() {
+            const res = await fetch('/api/content');
+            content = await res.json();
+            renderCurrentTab();
+        }
+
+        // ─── TAB SWITCHING ───────
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderCurrentTab();
+            });
+        });
+
+        function currentTab() {
+            return document.querySelector('.tab-btn.active')?.dataset.tab || 'global';
+        }
+
+        // ─── RENDER TABS ─────────
+        function renderCurrentTab() {
+            const tab = currentTab();
+            const area = document.getElementById('tab-content');
+            const renderers = {
+                'global': renderGlobal,
+                'hero': renderHero,
+                'intro': renderIntro,
+                'featured': renderFeatured,
+                'expertise': renderExpertise,
+                'listings-preview': renderListingsPreview,
+                'about': renderAbout,
+                'listings': renderListings,
+                'compass': renderCompass,
+                'contact': renderContact
+            };
+            area.innerHTML = (renderers[tab] || renderGlobal)();
+        }
+
+        // ─── FIELD HELPERS ───────
+        function field(label, path, value, type = 'text') {
+            const id = path.replace(/\./g, '_');
+            if (type === 'textarea') {
+                return `<div class="space-y-2">
+                    <label class="text-xs font-semibold uppercase tracking-widest text-white/40">${label}</label>
+                    <textarea data-path="${path}" id="f_${id}" rows="4"
+                        class="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-white/30 resize-y"
+                        oninput="updateField('${path}', this.value)">${escHtml(value || '')}</textarea>
+                </div>`;
+            }
+            return `<div class="space-y-2">
+                <label class="text-xs font-semibold uppercase tracking-widest text-white/40">${label}</label>
+                <input type="${type}" data-path="${path}" id="f_${id}"
+                    class="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-white/30"
+                    value="${escAttr(value || '')}" oninput="updateField('${path}', this.value)">
+            </div>`;
+        }
+
+        function imageField(label, path, value) {
+            const id = path.replace(/\./g, '_');
+            return `<div class="space-y-2">
+                <label class="text-xs font-semibold uppercase tracking-widest text-white/40">${label}</label>
+                <div class="flex items-start gap-4">
+                    <div class="flex-1">
+                        <input type="text" data-path="${path}" id="f_${id}"
+                            class="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-white/30 mb-2"
+                            value="${escAttr(value || '')}" oninput="updateField('${path}', this.value)">
+                        <label class="cursor-pointer inline-flex items-center gap-2 bg-[#222] border border-white/10 px-4 py-2 rounded-lg text-xs font-medium text-white/60 hover:text-white hover:border-white/30 transition">
+                            <span>Upload Image</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="uploadImage(this, '${path}', 'f_${id}', 'prev_${id}')">
+                        </label>
+                    </div>
+                    <img id="prev_${id}" src="${escAttr(value || '')}" class="img-preview" onerror="this.style.display='none'" onload="this.style.display='block'">
+                </div>
+            </div>`;
+        }
+
+        function sectionTitle(title) {
+            return `<h2 class="text-2xl font-bold tracking-tight mb-1">${title}</h2>
+                    <p class="text-white/40 text-sm mb-8">Edit the content below and click Save All when done.</p>`;
+        }
+
+        function card(innerHtml) {
+            return `<div class="bg-[#151515] rounded-xl border border-white/10 p-6 space-y-5 mb-6">${innerHtml}</div>`;
+        }
+
+        // ─── SECTION RENDERERS ───
+        function renderGlobal() {
+            const g = content.global || {};
+            return sectionTitle('Global Info') + card(
+                field('Site Title', 'global.siteTitle', g.siteTitle) +
+                field('Agent Full Name', 'global.agentName', g.agentName) +
+                field('First Name (hero)', 'global.agentFirstName', g.agentFirstName) +
+                field('Last Name (hero)', 'global.agentLastName', g.agentLastName) +
+                field('Phone (display)', 'global.phone', g.phone) +
+                field('Phone (raw digits)', 'global.phoneRaw', g.phoneRaw) +
+                field('Email', 'global.email', g.email) +
+                field('Brokerage', 'global.brokerage', g.brokerage) +
+                field('Area', 'global.area', g.area) +
+                field('Call Button Label', 'global.callLabel', g.callLabel) +
+                field('Facebook URL', 'global.facebookUrl', g.facebookUrl) +
+                field('Instagram URL', 'global.instagramUrl', g.instagramUrl) +
+                field('LinkedIn URL', 'global.linkedinUrl', g.linkedinUrl)
+            );
+        }
+
+        function renderHero() {
+            const h = content.hero || {};
+            return sectionTitle('Hero Section') + card(
+                imageField('Background Image', 'hero.backgroundImage', h.backgroundImage) +
+                field('Background Alt Text', 'hero.backgroundAlt', h.backgroundAlt) +
+                field('Tagline', 'hero.tagline', h.tagline)
+            );
+        }
+
+        function renderIntro() {
+            const i = content.intro || {};
+            return sectionTitle('Intro Section') + card(
+                field('Headline Line 1', 'intro.headline', i.headline) +
+                field('Headline Line 2', 'intro.headlineBreak', i.headlineBreak) +
+                field('Description', 'intro.description', i.description, 'textarea')
+            );
+        }
+
+        function renderFeatured() {
+            const f = content.featured || {};
+            return sectionTitle('Featured Property') + card(
+                field('Section Title', 'featured.sectionTitle', f.sectionTitle) +
+                field('Label', 'featured.label', f.label) +
+                imageField('Image', 'featured.image', f.image) +
+                field('Image Alt', 'featured.imageAlt', f.imageAlt) +
+                field('Title', 'featured.title', f.title) +
+                field('Description', 'featured.description', f.description, 'textarea') +
+                field('Spec 1', 'featured.specs.0', (f.specs || [])[0]) +
+                field('Spec 2', 'featured.specs.1', (f.specs || [])[1]) +
+                field('Spec 3', 'featured.specs.2', (f.specs || [])[2])
+            );
+        }
+
+        function renderExpertise() {
+            const items = content.expertise || [];
+            let html = sectionTitle('Expertise / Why Work With');
+            items.forEach((item, i) => {
+                html += card(
+                    `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Item ${i + 1}</h3>` +
+                    field('Title', `expertise.${i}.title`, item.title) +
+                    field('Description', `expertise.${i}.description`, item.description, 'textarea')
+                );
+            });
+            return html;
+        }
+
+        function renderListingsPreview() {
+            const items = content.listingsPreview || [];
+            let html = sectionTitle('Home Page Listing Cards');
+            items.forEach((item, i) => {
+                html += card(
+                    `<div class="flex items-center justify-between mb-4">
+                        <h3 class="text-white/60 text-xs font-bold uppercase tracking-widest">Card ${i + 1}</h3>
+                        <button onclick="removeListingPreview(${i})" class="text-red-400/60 hover:text-red-400 text-xs font-medium transition">✕ Remove</button>
+                    </div>` +
+                    imageField('Image', `listingsPreview.${i}.image`, item.image) +
+                    field('Image Alt', `listingsPreview.${i}.imageAlt`, item.imageAlt) +
+                    field('Name', `listingsPreview.${i}.name`, item.name) +
+                    field('Price', `listingsPreview.${i}.price`, item.price)
+                );
+            });
+            html += `<button onclick="addListingPreview()" class="w-full border-2 border-dashed border-white/10 hover:border-white/30 rounded-xl py-4 text-white/40 hover:text-white text-sm font-medium transition">
+                + Add Listing Card
+            </button>`;
+            return html;
+        }
+
+        function addListingPreview() {
+            if (!content.listingsPreview) content.listingsPreview = [];
+            content.listingsPreview.push({
+                image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop',
+                imageAlt: 'Property',
+                name: 'New Property',
+                price: '$0'
+            });
+            renderCurrentTab();
+            showToast('Listing card added — fill in the details and Save All', 'success');
+        }
+
+        function removeListingPreview(index) {
+            if (!confirm('Remove this listing card?')) return;
+            content.listingsPreview.splice(index, 1);
+            renderCurrentTab();
+            showToast('Listing card removed — click Save All to apply', 'success');
+        }
+
+        function renderAbout() {
+            const a = content.about || {};
+            const strats = a.strategyItems || [];
+            let html = sectionTitle('About / Profile Page') + card(
+                field('Decorative Text', 'about.decorativeText', a.decorativeText) +
+                field('Headline', 'about.headline', a.headline) +
+                field('Bio Paragraph 1', 'about.bio1', a.bio1, 'textarea') +
+                field('Bio Paragraph 2', 'about.bio2', a.bio2, 'textarea') +
+                imageField('Profile Image', 'about.profileImage', a.profileImage) +
+                field('Profile Image Alt', 'about.profileImageAlt', a.profileImageAlt)
+            );
+            html += card(
+                `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Strategy Section</h3>` +
+                field('Strategy Headline', 'about.strategyHeadline', a.strategyHeadline) +
+                imageField('Strategy Image', 'about.strategyImage', a.strategyImage) +
+                field('Strategy Image Alt', 'about.strategyImageAlt', a.strategyImageAlt)
+            );
+            strats.forEach((s, i) => {
+                html += card(
+                    `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Strategy Item ${i + 1}</h3>` +
+                    field('Title', `about.strategyItems.${i}.title`, s.title) +
+                    field('Description', `about.strategyItems.${i}.description`, s.description, 'textarea')
+                );
+            });
+            return html;
+        }
+
+        function renderListings() {
+            const l = content.listings || {};
+            const m = l.main || {};
+            const sec = l.secondary || [];
+            let html = sectionTitle('Listings Page');
+            html += card(
+                `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Page Header</h3>` +
+                field('Page Title', 'listings.pageTitle', l.pageTitle) +
+                field('Page Title Accent', 'listings.pageTitleAccent', l.pageTitleAccent) +
+                field('Subtitle', 'listings.subtitle', l.subtitle) +
+                field('Description', 'listings.description', l.description, 'textarea')
+            );
+            html += card(
+                `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Main Listing</h3>` +
+                imageField('Image', 'listings.main.image', m.image) +
+                field('Image Alt', 'listings.main.imageAlt', m.imageAlt) +
+                field('Location', 'listings.main.location', m.location) +
+                field('Address', 'listings.main.address', m.address) +
+                field('Description', 'listings.main.description', m.description, 'textarea') +
+                field('Spec 1', 'listings.main.specs.0', (m.specs || [])[0]) +
+                field('Spec 2', 'listings.main.specs.1', (m.specs || [])[1]) +
+                field('Price', 'listings.main.price', m.price) +
+                field('Status', 'listings.main.status', m.status)
+            );
+            sec.forEach((s, i) => {
+                html += card(
+                    `<div class="flex items-center justify-between mb-4">
+                        <h3 class="text-white/60 text-xs font-bold uppercase tracking-widest">Secondary Listing ${i + 1}</h3>
+                        <button onclick="removeSecondaryListing(${i})" class="text-red-400/60 hover:text-red-400 text-xs font-medium transition">✕ Remove</button>
+                    </div>` +
+                    imageField('Image', `listings.secondary.${i}.image`, s.image) +
+                    field('Location', `listings.secondary.${i}.location`, s.location) +
+                    field('Address', `listings.secondary.${i}.address`, s.address) +
+                    field('Description', `listings.secondary.${i}.description`, s.description, 'textarea') +
+                    field('Price', `listings.secondary.${i}.price`, s.price) +
+                    field('Status', `listings.secondary.${i}.status`, s.status)
+                );
+            });
+            html += `<button onclick="addSecondaryListing()" class="w-full border-2 border-dashed border-white/10 hover:border-white/30 rounded-xl py-4 text-white/40 hover:text-white text-sm font-medium transition">
+                + Add Secondary Listing
+            </button>`;
+            return html;
+        }
+
+        function addSecondaryListing() {
+            if (!content.listings) content.listings = {};
+            if (!content.listings.secondary) content.listings.secondary = [];
+            content.listings.secondary.push({
+                image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop',
+                location: 'Location',
+                address: 'New Property',
+                description: 'Property description goes here.',
+                price: '$0',
+                status: 'Active'
+            });
+            renderCurrentTab();
+            showToast('Secondary listing added — fill in the details and Save All', 'success');
+        }
+
+        function removeSecondaryListing(index) {
+            if (!confirm('Remove this secondary listing?')) return;
+            content.listings.secondary.splice(index, 1);
+            renderCurrentTab();
+            showToast('Secondary listing removed — click Save All to apply', 'success');
+        }
+
+        function renderCompass() {
+            const c = content.compass || {};
+            const feats = c.features || [];
+            let html = sectionTitle('JCBO Page') + card(
+                field('Headline', 'compass.headline', c.headline) +
+                field('Headline Accent', 'compass.headlineAccent', c.headlineAccent) +
+                field('Description', 'compass.description', c.description, 'textarea') +
+                imageField('Image', 'compass.image', c.image) +
+                field('Image Alt', 'compass.imageAlt', c.imageAlt) +
+                field('Subheadline', 'compass.subheadline', c.subheadline) +
+                field('Body Text', 'compass.body', c.body, 'textarea')
+            );
+            feats.forEach((f, i) => {
+                html += card(
+                    `<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Feature ${i + 1}</h3>` +
+                    field('Title', `compass.features.${i}.title`, f.title) +
+                    field('Description', `compass.features.${i}.description`, f.description, 'textarea')
+                );
+            });
+            return html;
+        }
+
+        function renderContact() {
+            const c = content.contact || {};
+            return sectionTitle('Contact Page') + card(
+                field('Headline', 'contact.headline', c.headline) +
+                field('Subtitle', 'contact.subtitle', c.subtitle, 'textarea')
+            );
+        }
+
+        // ─── DATA UPDATE ─────────
+        function updateField(path, value) {
+            setNestedValue(content, path, value);
+        }
+
+        function setNestedValue(obj, path, value) {
+            const keys = path.split('.');
+            let current = obj;
+            for (let i = 0; i < keys.length - 1; i++) {
+                const key = isNaN(keys[i]) ? keys[i] : parseInt(keys[i]);
+                if (current[key] === undefined) {
+                    current[key] = isNaN(keys[i + 1]) ? {} : [];
+                }
+                current = current[key];
+            }
+            const finalKey = isNaN(keys[keys.length - 1]) ? keys[keys.length - 1] : parseInt(keys[keys.length - 1]);
+            current[finalKey] = value;
+        }
+
+        // ─── IMAGE UPLOAD ────────
+        async function uploadImage(input, path, inputId, previewId) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    headers: { 'x-admin-password': password() },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.url) {
+                    document.getElementById(inputId).value = data.url;
+                    document.getElementById(previewId).src = data.url;
+                    updateField(path, data.url);
+                    showToast('Image uploaded!', 'success');
+                }
+            } catch (e) {
+                showToast('Upload failed', 'error');
+            }
+        }
+
+        // ─── SAVE ────────────────
+        async function saveAll() {
+            const btn = document.getElementById('save-btn');
+            btn.innerHTML = '<span>Saving...</span>';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/content', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-password': password()
+                    },
+                    body: JSON.stringify(content)
+                });
+                if (res.ok) {
+                    showToast('Content saved! Refresh the site to see changes.', 'success');
+                } else {
+                    showToast('Save failed — check password', 'error');
+                }
+            } catch (e) {
+                showToast('Save failed — server error', 'error');
+            }
+
+            btn.innerHTML = '<span>Save All</span>';
+            btn.disabled = false;
+        }
+
+        // ─── TOAST ───────────────
+        function showToast(msg, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const el = document.createElement('div');
+            el.className = `toast ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'} text-white text-sm`;
+            el.textContent = msg;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 3000);
+        }
+
+        // ─── UTIL ────────────────
+        function escHtml(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function escAttr(str) { return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    </script>
+</body>
+
+</html>

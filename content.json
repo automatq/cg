@@ -1,0 +1,159 @@
+{
+  "global": {
+    "siteTitle": "Ciara Gadier | JCBO Real Estate",
+    "agentName": "Ciara Gadier",
+    "agentFirstName": "ciara",
+    "agentLastName": "gadier_",
+    "phone": "(832) 928-4143",
+    "phoneRaw": "09564113700",
+    "email": "ciara.gadier@compass.com",
+    "brokerage": "JCBO Real Estate",
+    "area": "Metro Manila & Cebu",
+    "callLabel": "Call Ciara Directly",
+    "facebookUrl": "https://www.facebook.com/",
+    "instagramUrl": "https://www.instagram.com/",
+    "linkedinUrl": "https://www.linkedin.com/"
+  },
+  "hero": {
+    "backgroundImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2600&auto=format&fit=crop",
+    "backgroundAlt": "Luxury Real Estate",
+    "tagline": "Premier Real Estate in Metro Manila & Cebu."
+  },
+  "intro": {
+    "headline": "Guiding you home,",
+    "headlineBreak": "with integrity.",
+    "description": "With deep roots in Metro Manila & Cebu, Ciara Gadier combines local market expertise with the powerful technology of Compass. Whether buying your first home or selling a luxury estate, experience a transaction defined by clarity, precision, and personal attention."
+  },
+  "featured": {
+    "sectionTitle": "Featured Property",
+    "label": "THE WOODLANDS RESERVE",
+    "image": "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg",
+    "imageAlt": "Luxury Estate",
+    "title": "Modern luxury meets Texas charm.",
+    "description": "A spectacular residence in the heart of Metro Manila. Offering expansive outdoor living spaces, a resort-style pool, and custom finishes throughout. This property exemplifies the quality of life available in Metro Manila's most exclusive neighborhoods.",
+    "specs": [
+      "5 Bedrooms, 5.5 Baths",
+      "4,500 Sq Ft",
+      "Oversized Lot"
+    ]
+  },
+  "expertise": [
+    {
+      "title": "Local Expert",
+      "description": "Deep knowledge of Metro Manila, Cebu, and surrounding markets to price and market your home effectively."
+    },
+    {
+      "title": "Market Insight",
+      "description": "Data-driven strategies backed by Compass technology to ensure you make informed decisions."
+    },
+    {
+      "title": "Dedicated Service",
+      "description": "A commitment to seamless transactions, advocating for your best interests from contract to closing."
+    }
+  ],
+  "listingsPreview": [
+    {
+      "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1600&auto=format&fit=crop",
+      "imageAlt": "Spring Property",
+      "name": "Spring Creek Estate",
+      "price": "$1,250,000"
+    },
+    {
+      "image": "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg",
+      "imageAlt": "Woodlands Home",
+      "name": "Woodlands Reserve",
+      "price": "$890,000"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=1600&auto=format&fit=crop",
+      "imageAlt": "Auburn Lakes",
+      "name": "Auburn Lakes",
+      "price": "$650,000"
+    }
+  ],
+  "about": {
+    "decorativeText": "Ciara",
+    "headline": "Your Partner in Real Estate.",
+    "bio1": "Ciara Gadier is a distinguished real estate professional serving Metro Manila, Cebu, and the greater Philippines area. With an unwavering commitment to her clients, she navigates the complexities of the market with grace and precision.",
+    "bio2": "Affiliated with Compass, the country's largest independent real estate brokerage, Ciara leverages best-in-class technology and a nationwide network to deliver exceptional results. Whether you are looking for a family home in Metro Manila or a luxury estate in Cebu, Ciara provides the insight and guidance needed to make your move a success.",
+    "profileImage": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2600&auto=format&fit=crop",
+    "profileImageAlt": "Ciara Gadier Professional Context",
+    "strategyHeadline": "A strategic approach to selling.",
+    "strategyItems": [
+      {
+        "title": "Proven Integrity",
+        "description": "Honest communication and transparency are the cornerstones of Ciara's business philosophy."
+      },
+      {
+        "title": "Compass Concierge",
+        "description": "Unlock the ability to renovate your home before selling with no upfront costs, maximizing your sale price."
+      }
+    ],
+    "strategyImage": "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c543a9e1-f226-4ced-80b0-feb8445a75b9_1600w.jpg",
+    "strategyImageAlt": "Kitchen Detail"
+  },
+  "listings": {
+    "pageTitle": "Featured",
+    "pageTitleAccent": "Listings",
+    "subtitle": "Representing the finest homes in Metro Manila & Cebu.",
+    "description": "Explore a collection of properties hand-picked for their quality, location, and value.",
+    "main": {
+      "image": "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg",
+      "imageAlt": "The Woodlands Reserve",
+      "location": "Metro Manila",
+      "address": "124 Reserve Drive",
+      "description": "Immaculate contemporary estate featuring high ceilings, chef's kitchen, and a private backyard oasis. Perfectly situated near top-rated schools and shopping.",
+      "specs": [
+        "5 Beds, 5.5 Baths",
+        "Pool & Spa"
+      ],
+      "price": "$1,250,000",
+      "status": "Active"
+    },
+    "secondary": [
+      {
+        "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
+        "location": "Metro Manila",
+        "address": "78 Willow Creek",
+        "description": "Traditional brick family home on a quiet cul-de-sac.",
+        "price": "$450,000",
+        "status": "Under Contract"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1600&auto=format&fit=crop",
+        "location": "Creekside Park",
+        "address": "22 Blue Heron",
+        "description": "Exquisite waterfront property with custom finishes.",
+        "price": "$920,000",
+        "status": "Sold"
+      }
+    ]
+  },
+  "compass": {
+    "headline": "JCBO",
+    "headlineAccent": "Advantage.",
+    "description": "Ciara Gadier is proud to be a broker associate with JCBO, redefining the buying and selling experience through technology and reach.",
+    "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
+    "imageAlt": "JCBO Strategy",
+    "subheadline": "Technology + Tradition.",
+    "body": "We pair the industry's top talent with technology to make the search and sell experience intelligent and seamless.",
+    "features": [
+      {
+        "title": "JCBO Concierge",
+        "description": "Fronts the cost of home improvement services with no interest or fees."
+      },
+      {
+        "title": "JCBO Lens",
+        "description": "AI-driven insights to price your home accurately."
+      },
+      {
+        "title": "Private Exclusives",
+        "description": "Access to off-market listings before they hit the public sites."
+      }
+    ]
+  },
+  "contact": {
+    "headline": "Let's Connect.",
+    "subtitle": "Ready to buy or sell in Metro Manila or Cebu? Contact Ciara Gadier today."
+  }
+}

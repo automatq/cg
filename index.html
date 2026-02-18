@@ -1,0 +1,1060 @@
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <script>
+        document.documentElement.classList.add('js-active');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-cms-title="global.siteTitle">Ciara Gadier | JCBO Real Estate</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Base Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Reveal System */
+        .reveal-on-scroll {
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+            /* Default visible for editors/no-js */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Only hide when JS is active to prevent invisible content in editors */
+        html.js-active .reveal-on-scroll:not(.is-visible) {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays for Grids */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        /* Page Management */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* UI Elements */
+        .hover-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+    <link href="https://fonts.cdnfonts.com/css/sofia-pro" rel="stylesheet">
+    <style>
+        @keyframes periodic-bounce {
+
+            0%,
+            85% {
+                transform: translateY(0) scale(1);
+            }
+
+            87% {
+                transform: translateY(-10px) scale(1.1);
+            }
+
+            89% {
+                transform: translateY(0) scale(1.1);
+            }
+
+            91% {
+                transform: translateY(-5px) scale(1.1);
+            }
+
+            93% {
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-periodic-bounce {
+            animation: periodic-bounce 6s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .animate-periodic-bounce:hover {
+            animation: none;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-white text-brand-dark font-sans antialiased selection:bg-brand-dark selection:text-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-[60] transition-all duration-500 text-white">
+        <div class="max-w-[1800px] mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
+            <!-- Logo -->
+            <button onclick="navigateTo('home')"
+                class="text-xl md:text-2xl font-bold tracking-tighter hover:opacity-70 transition-opacity z-[70] focus:outline-none uppercase">
+                <span data-cms="global.agentName">Ciara Gadier</span>
+            </button>
+
+            <div class="hidden md:flex items-center gap-12 text-sm font-medium tracking-tight">
+                <button onclick="navigateTo('about')" class="hover-underline hover:opacity-100 opacity-80">
+                    Profile
+                </button>
+                <button onclick="navigateTo('listings')" class="hover-underline hover:opacity-100 opacity-80">
+                    Properties
+                </button>
+                <button onclick="navigateTo('compass')" class="hover-underline hover:opacity-100 opacity-80">
+                    JCBO
+                </button>
+                <button onclick="navigateTo('contact')" class="hover-underline hover:opacity-100 opacity-80">
+                    Contact
+                </button>
+            </div>
+
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden z-[70]" onclick="toggleMobileMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    id="menu-icon" class="lucide lucide-menu w-6 h-6 transition-colors duration-300">
+                    <path d="M4 5h16"></path>
+                    <path d="M4 12h16"></path>
+                    <path d="M4 19h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-[#1C1C1C] z-[65] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-500 md:hidden">
+            <nav class="flex flex-col gap-10 text-center">
+                <button onclick="navigateTo('home'); toggleMobileMenu()"
+                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                    Home
+                </button>
+                <button onclick="navigateTo('about'); toggleMobileMenu()"
+                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                    Profile
+                </button>
+                <button onclick="navigateTo('listings'); toggleMobileMenu()"
+                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                    Properties
+                </button>
+                <button onclick="navigateTo('compass'); toggleMobileMenu()"
+                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                    JCBO
+                </button>
+                <button onclick="navigateTo('contact'); toggleMobileMenu()"
+                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                    Contact
+                </button>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="min-h-screen">
+        <!-- PAGE 1: HOME -->
+        <section id="home" class="page-section active">
+            <!-- Hero -->
+            <div class="relative h-screen w-full overflow-hidden">
+                <div class="absolute inset-0">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b z-10 pointer-events-none from-black/50 via-black/10 to-black/60">
+                    </div>
+                    <!-- Background Image: Luxury Texas Estate -->
+                    <img data-cms-img="hero.backgroundImage"
+                        src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&amp;w=2600&amp;auto=format&amp;fit=crop"
+                        class="w-full h-full object-cover pointer-events-none scale-105 animate-[zoomIn_20s_ease-out_infinite]"
+                        alt="Luxury Real Estate" data-cms-alt="hero.backgroundAlt">
+                </div>
+                <div
+                    class="md:px-12 flex flex-col z-20 h-full max-w-[1800px] mx-auto relative justify-center px-6 text-white">
+                    <h1
+                        class="text-6xl md:text-8xl lg:text-[8rem] font-bold tracking-tighter leading-[0.9] select-none drop-shadow-2xl text-white">
+                        <span class="block opacity-0"
+                            style="animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s">
+                            <span data-cms="global.agentFirstName">ciara</span>
+                        </span>
+                        <span class="block opacity-0"
+                            style="animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s">
+                            <span data-cms="global.agentLastName">gadier_</span>
+                        </span>
+                    </h1>
+                    <p class="mt-6 text-lg md:text-xl font-medium tracking-wide text-white/90 max-w-xl opacity-0"
+                        style="animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s">
+                        <span data-cms="hero.tagline">Premier Real Estate in Metro Manila & Cebu.</span>
+                    </p>
+                </div>
+                <div class="absolute bottom-10 left-6 md:left-12 z-20 flex items-center gap-4 pointer-events-none text-white/90"
+                    style="animation: bounce 2s infinite">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14"></path>
+                        <path d="m19 12-7 7-7-7"></path>
+                    </svg>
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase">
+                        Explore Properties
+                    </span>
+                </div>
+            </div>
+
+            <div class="bg-brand-white text-brand-dark py-24 md:py-32">
+                <div class="md:px-12 reveal-on-scroll max-w-[1800px] mr-auto ml-auto pr-6 pl-6">
+                    <h2 class="md:text-6xl lg:text-7xl leading-[1] text-4xl font-semibold tracking-tighter mb-8">
+                        <span data-cms="intro.headline">Guiding you home,</span>
+                        <br class="hidden md:block">
+                        <span data-cms="intro.headlineBreak">with integrity.</span>
+                    </h2>
+                    <p class="md:text-xl text-brand-gray leading-relaxed text-brand-accent text-lg font-normal tracking-tight max-w-2xl mb-10"
+                        data-cms="intro.description">
+                        With deep roots in Metro Manila & Cebu, Ciara Gadier combines local market expertise with the
+                        powerful
+                        technology of Compass. Whether buying your first home or selling a luxury estate, experience a
+                        transaction defined by clarity, precision, and personal attention.
+                    </p>
+                    <button onclick="navigateTo('listings')"
+                        class="flex items-center gap-2 text-sm font-semibold border-b border-brand-dark pb-1 hover:opacity-70 transition-opacity w-fit group">
+                        view current listings
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            data-lucide="arrow-right"
+                            class="lucide lucide-arrow-right w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Listing -->
+            <div class="md:px-12 md:py-40 max-w-[1800px] mr-auto ml-auto pt-12 pr-6 pb-32 pl-6">
+                <div
+                    class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-brand-light pb-6 reveal-on-scroll">
+                    <h2 class="md:text-5xl text-brand-black text-3xl font-bold tracking-tighter"
+                        data-cms="featured.sectionTitle">
+                        Featured Property
+                    </h2>
+                    <span class="text-sm font-medium text-brand-gray md:mb-2" data-cms="featured.label">
+                        THE WOODLANDS RESERVE
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
+                    <div class="lg:col-span-8 relative group cursor-pointer reveal-on-scroll"
+                        onclick="navigateTo('listings')">
+                        <div class="overflow-hidden bg-brand-light aspect-[16/9] w-full relative">
+                            <img data-cms-img="featured.image"
+                                src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                                alt="Luxury Estate" data-cms-alt="featured.imageAlt"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div
+                                class="group-hover:opacity-100 transition-opacity duration-500 flex z-10 opacity-0 absolute top-0 right-0 bottom-0 left-0 items-center justify-center">
+                                <span
+                                    class="backdrop-blur-sm text-brand-black px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-xl bg-white/95">
+                                    View Details
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-4 flex flex-col reveal-on-scroll delay-100 pt-4 pb-4 justify-between">
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-semibold tracking-tight" data-cms="featured.title">
+                                Modern luxury meets Texas charm.
+                            </h3>
+                            <p class="text-brand-gray leading-relaxed font-normal" data-cms="featured.description">
+                                A spectacular residence in the heart of Metro Manila. Offering expansive outdoor living
+                                spaces, a resort-style pool, and custom finishes throughout. This property exemplifies
+                                the quality of life available in Metro Manila's most exclusive neighborhoods.
+                            </p>
+                            <ul class="text-sm text-brand-dark space-y-2 border-l border-brand-light pl-4">
+                                <li data-cms="featured.specs.0">5 Bedrooms, 5.5 Baths</li>
+                                <li data-cms="featured.specs.1">4,500 Sq Ft</li>
+                                <li data-cms="featured.specs.2">Oversized Lot</li>
+                            </ul>
+                        </div>
+                        <button onclick="navigateTo('listings')"
+                            class="mt-8 px-8 py-4 border border-brand-black/20 text-brand-black rounded-full font-medium text-sm hover:bg-brand-black transition-all w-fit hover:text-white">
+                            View All Properties
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expertise Areas -->
+            <div class="bg-brand-black py-32 md:py-40 text-white">
+                <div class="max-w-[1800px] mx-auto px-6 md:px-12">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-white/50 mb-16 reveal-on-scroll"
+                        data-cms-template="expertise-heading">Why Work With <span
+                            data-cms="global.agentFirstName">Ciara</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
+                        <div class="space-y-6 group reveal-on-scroll">
+                            <div
+                                class="w-12 h-12 rounded-full flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 bg-white text-brand-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-map-pin w-5 h-5">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold tracking-tight" data-cms="expertise.0.title">Local Expert</h3>
+                            <p class="text-white/60 leading-relaxed" data-cms="expertise.0.description">
+                                Deep knowledge of Metro Manila, Cebu, and surrounding markets to price and
+                                market your home effectively.
+                            </p>
+                        </div>
+                        <div class="group reveal-on-scroll delay-100 space-y-6">
+                            <div
+                                class="flex transition-transform duration-300 group-hover:scale-110 w-12 h-12 rounded-full shadow-sm items-center justify-center bg-white text-brand-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-trending-up w-5 h-5">
+                                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                                    <polyline points="16 7 22 7 22 13"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold tracking-tight" data-cms="expertise.1.title">Market Insight
+                            </h3>
+                            <p class="text-white/60 leading-relaxed" data-cms="expertise.1.description">
+                                Data-driven strategies backed by Compass technology to ensure you make informed
+                                decisions.
+                            </p>
+                        </div>
+                        <div class="group reveal-on-scroll delay-200 space-y-6">
+                            <div
+                                class="w-12 h-12 rounded-full flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 bg-white text-brand-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-handshake w-5 h-5">
+                                    <path d="m11 17 2 2a1 1 0 1 0 3-3"></path>
+                                    <path
+                                        d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-1.42-1.42l4-4a1 1 0 0 1 1.41 0l2.17 2.17a1 1 0 0 0 1.42 0L21 9a1 1 0 0 0 0-1.42l-2.58-2.58a3 3 0 0 0-4.24 0l-3.75 3.75a2 2 0 0 0 0 2.82l-1.5 1.5">
+                                    </path>
+                                    <path d="m6.5 17-2.3 2.3a1 1 0 0 0 0 1.4l1.4 1.4a1 1 0 0 0 1.4 0L9.3 19.8"></path>
+                                    <path d="m2 2 20 20"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold tracking-tight" data-cms="expertise.2.title">Dedicated Service
+                            </h3>
+                            <p class="text-white/60 leading-relaxed" data-cms="expertise.2.description">
+                                A commitment to seamless transactions, advocating for your best interests from contract
+                                to closing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Listings Preview -->
+            <div class="max-w-[1800px] mx-auto px-6 md:px-12 py-32 md:py-40">
+                <div class="mb-20 max-w-2xl reveal-on-scroll">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
+                        Exclusive Listings
+                    </h2>
+                    <p class="text-brand-gray leading-relaxed text-lg font-normal">
+                        A curated selection of properties currently available.
+                    </p>
+                </div>
+
+                <div id="listings-preview-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Dynamically rendered by loadCMS() -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: PROFILE (ABOUT) -->
+        <section id="about" class="page-section fade-in">
+            <div class="pt-32 pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
+                <div class="mb-16 md:mb-24 reveal-on-scroll overflow-hidden">
+                    <!-- Decorative Background Text -->
+                    <span
+                        class="text-[5rem] md:text-[10rem] lg:text-[12rem] font-bold tracking-tighter text-brand-light leading-none select-none block -mb-8 md:-mb-16 opacity-40 uppercase"
+                        data-cms="about.decorativeText">ciara</span>
+                    <!-- Main Headline -->
+                    <h1 class="relative text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1.1] text-brand-dark"
+                        data-cms="about.headline">Your Partner in Real Estate.</h1>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+                    <div
+                        class="lg:col-span-8 lg:col-start-1 text-lg md:text-xl font-normal text-brand-gray leading-relaxed space-y-8 reveal-on-scroll delay-100">
+                        <p data-cms="about.bio1">
+                            Ciara Gadier is a distinguished real estate professional serving Metro Manila, Cebu, and the
+                            greater Philippines area. With an unwavering commitment to her clients, she navigates the
+                            complexities of the market with grace and precision.
+                        </p>
+                        <p data-cms="about.bio2">
+                            Affiliated with Compass, the country's largest independent real estate brokerage, Ciara
+                            leverages best-in-class technology and a nationwide network to deliver exceptional results.
+                            Whether you are looking for a family home in Metro Manila or a luxury estate in Cebu,
+                            Ciara provides the insight and guidance needed to make your move a success.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full h-[60vh] relative overflow-hidden bg-brand-light reveal-on-scroll">
+                <img data-cms-img="about.profileImage"
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&amp;w=2600&amp;auto=format&amp;fit=crop"
+                    class="w-full h-full object-cover grayscale opacity-90 hover:opacity-100 hover:grayscale-0 transition-all duration-1000"
+                    alt="Professional Context" data-cms-alt="about.profileImageAlt">
+            </div>
+
+            <div class="py-32 px-6 md:px-12 max-w-[1800px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    <div class="order-2 lg:order-1 space-y-12 reveal-on-scroll">
+                        <h3 class="text-4xl md:text-5xl font-semibold tracking-tighter"
+                            data-cms="about.strategyHeadline">
+                            A strategic approach to selling.
+                        </h3>
+                        <div class="space-y-8">
+                            <div class="flex gap-6 items-start">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-brand-light flex items-center justify-center shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 text-brand-dark">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h5 class="text-xl font-semibold mb-2" data-cms="about.strategyItems.0.title">Proven
+                                        Integrity</h5>
+                                    <p class="text-brand-gray" data-cms="about.strategyItems.0.description">
+                                        Honest communication and transparency are the cornerstones of Ciara's business
+                                        philosophy.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-brand-light flex items-center justify-center shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 text-brand-dark">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                        </polygon>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h5 class="text-xl font-semibold mb-2" data-cms="about.strategyItems.1.title">
+                                        Compass Concierge</h5>
+                                    <p class="text-brand-gray" data-cms="about.strategyItems.1.description">
+                                        Unlock the ability to renovate your home before selling with no upfront costs,
+                                        maximizing your sale price.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 reveal-on-scroll delay-100">
+                        <img data-cms-img="about.strategyImage"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c543a9e1-f226-4ced-80b0-feb8445a75b9_1600w.jpg"
+                            class="w-full aspect-square object-cover grayscale rounded-sm" alt="Kitchen Detail"
+                            data-cms-alt="about.strategyImageAlt">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: LISTINGS -->
+        <section id="listings" class="page-section fade-in">
+            <div class="pt-32 pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
+                <h1 class="text-6xl md:text-9xl font-semibold tracking-tighter mb-12 text-brand-dark reveal-on-scroll">
+                    <span data-cms="listings.pageTitle">Featured</span>
+                    <span class="text-brand-gray" data-cms="listings.pageTitleAccent">Listings</span>
+                </h1>
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-brand-dark/10 pt-12 reveal-on-scroll delay-100">
+                    <div class="lg:col-span-5">
+                        <p class="text-xl md:text-2xl font-medium leading-relaxed text-brand-dark"
+                            data-cms="listings.subtitle">
+                            Representing the finest homes in Metro Manila & Cebu.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 text-brand-gray leading-relaxed space-y-6">
+                        <p data-cms="listings.description">
+                            Explore a collection of properties hand-picked for their quality, location, and value.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 md:px-12 max-w-[1800px] mx-auto pb-32">
+                <!-- Main Listing -->
+                <div class="group cursor-pointer mb-24 reveal-on-scroll" onclick="navigateTo('contact')">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+                        <div class="relative overflow-hidden aspect-[4/3] bg-brand-light lg:order-2">
+                            <div class="absolute top-6 left-6 z-10">
+                                <span
+                                    class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-black text-xs font-bold uppercase tracking-wider shadow-lg text-white"
+                                    data-cms="listings.main.status">Active
+                                </span>
+                            </div>
+                            <img data-cms-img="listings.main.image"
+                                src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                                alt="Main Listing" data-cms-alt="listings.main.imageAlt"
+                                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                        </div>
+                        <div class="flex flex-col justify-between h-full lg:py-8 lg:order-1">
+                            <div class="space-y-8">
+                                <div>
+                                    <span class="text-xs font-bold text-brand-gray uppercase tracking-widest mb-3 block"
+                                        data-cms="listings.main.location">
+                                        Metro Manila
+                                    </span>
+                                    <h2 class="text-5xl md:text-6xl font-semibold tracking-tighter text-brand-dark group-hover:opacity-70 transition-opacity"
+                                        data-cms="listings.main.address">
+                                        124 Reserve Drive
+                                    </h2>
+                                </div>
+                                <p class="text-lg text-brand-gray leading-relaxed max-w-md"
+                                    data-cms="listings.main.description">
+                                    Immaculate contemporary estate featuring high ceilings, chef's kitchen, and a
+                                    private backyard oasis. Perfectly situated near top-rated schools and shopping.
+                                </p>
+                                <ul
+                                    class="space-y-3 text-sm font-medium text-brand-dark border-l-2 border-brand-dark/10 pl-6">
+                                    <li class="flex items-center gap-2" data-cms="listings.main.specs.0">
+                                        5 Beds, 5.5 Baths
+                                    </li>
+                                    <li class="flex items-center gap-2" data-cms="listings.main.specs.1">
+                                        Pool &amp; Spa
+                                    </li>
+                                    <li class="flex items-center gap-2" data-cms="listings.main.price">$1,250,000</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="mt-12 flex items-center gap-4 text-brand-dark font-semibold group-hover:gap-6 transition-all">
+                                <span class="border-b border-brand-dark pb-0.5">
+                                    Schedule Tour
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" data-lucide="arrow-right"
+                                    class="lucide lucide-arrow-right w-5 h-5">
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-px bg-brand-dark/10 mb-20"></div>
+
+                <!-- Secondary Listings Grid -->
+                <div id="secondary-listings-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+                    <!-- Dynamically rendered by loadCMS() -->
+                </div>
+
+                <div class="mt-24 text-center border-t border-brand-dark/10 pt-16 reveal-on-scroll">
+                    <p class="text-brand-gray mb-6 font-medium">
+                        Looking for something specific?
+                    </p>
+                    <button onclick="navigateTo('contact')"
+                        class="px-8 py-3 rounded-full border border-brand-dark text-brand-dark hover:bg-brand-dark transition-all text-sm font-bold tracking-wide uppercase hover:text-white">
+                        Contact <span data-cms="global.agentFirstName">Ciara</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: COMPASS INFO (Brokerage) -->
+        <section id="compass" class="page-section fade-in">
+            <div class="pt-32 pb-20 px-6 md:px-12 max-w-[1800px] mx-auto">
+                <div class="border-b border-brand-dark/10 pb-12 mb-24 reveal-on-scroll">
+                    <h1 class="text-5xl md:text-8xl font-semibold tracking-tighter text-brand-dark mb-8">
+                        <span data-cms="compass.headline">The Compass</span>
+                        <br>
+                        <span class="text-brand-gray" data-cms="compass.headlineAccent">Advantage.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-brand-gray max-w-2xl leading-relaxed"
+                        data-cms="compass.description">
+                        Ciara Gadier is proud to be a broker associate with Compass, redefining the buying and selling
+                        experience through technology and reach.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start mb-32">
+                    <div class="relative aspect-[4/5] bg-brand-light overflow-hidden rounded-sm reveal-on-scroll">
+                        <img data-cms-img="compass.image"
+                            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&amp;w=1600&amp;auto=format&amp;fit=crop"
+                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                            alt="Compass Strategy" data-cms-alt="compass.imageAlt">
+                    </div>
+                    <div class="space-y-12 py-8 reveal-on-scroll delay-100">
+                        <h2 class="text-4xl md:text-5xl font-semibold tracking-tighter leading-[0.95]"
+                            data-cms="compass.subheadline">
+                            Technology + Tradition.
+                        </h2>
+                        <div class="space-y-8 text-lg text-brand-dark/80 font-normal leading-relaxed mt-12">
+                            <p data-cms="compass.body">
+                                We pair the industry's top talent with technology to make the search and sell experience
+                                intelligent and seamless.
+                            </p>
+                            <ul class="space-y-4 mt-8">
+                                <li class="flex items-start gap-4">
+                                    <span class="font-bold text-brand-black" data-cms="compass.features.0.title">Compass
+                                        Concierge</span>
+                                    <span class="text-brand-gray" data-cms="compass.features.0.description">Fronts the
+                                        cost of home improvement services with no
+                                        interest or fees.</span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="font-bold text-brand-black" data-cms="compass.features.1.title">Compass
+                                        Lens</span>
+                                    <span class="text-brand-gray" data-cms="compass.features.1.description">AI-driven
+                                        insights to price your home
+                                        accurately.</span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="font-bold text-brand-black" data-cms="compass.features.2.title">Private
+                                        Exclusives</span>
+                                    <span class="text-brand-gray" data-cms="compass.features.2.description">Access to
+                                        off-market listings before they hit the
+                                        public sites.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: CONTACT -->
+        <section id="contact" class="page-section fade-in">
+            <div class="max-w-[1200px] mx-auto px-6 md:px-12 py-12 md:py-16">
+                <div class="text-center mb-10 reveal-on-scroll">
+                    <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-6" data-cms="contact.headline">
+                        Let's Connect.
+                    </h1>
+                    <p class="text-xl text-brand-gray" data-cms="contact.subtitle">
+                        Ready to buy or sell in Metro Manila or Cebu? Contact Ciara Gadier today.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light rounded-2xl p-6 md:p-10 reveal-on-scroll delay-100">
+                    <div class="mb-12 text-center">
+                        <a data-cms-href-tel="global.phoneRaw" href="tel:8329284143"
+                            class="inline-flex items-center gap-2 text-brand-black border-b border-brand-black pb-1 hover:opacity-70 transition-opacity font-semibold">
+                            Call <span data-cms="global.agentFirstName">Ciara</span> directly
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone w-4 h-4">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                    <form class="space-y-6" data-cms-form-email="global.email">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold uppercase tracking-widest text-brand-gray">
+                                    Name
+                                </label>
+                                <input type="text"
+                                    class="w-full bg-transparent border-b border-brand-black/20 py-4 text-xl font-medium focus:outline-none focus:border-brand-black transition-colors"
+                                    placeholder="Your name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold uppercase tracking-widest text-brand-gray">
+                                    Email
+                                </label>
+                                <input type="email"
+                                    class="w-full bg-transparent border-b border-brand-black/20 py-4 text-xl font-medium focus:outline-none focus:border-brand-black transition-colors"
+                                    placeholder="Your email">
+                            </div>
+                            <div class="space-y-2 md:col-span-2">
+                                <label class="text-xs font-semibold uppercase tracking-widest text-brand-gray">
+                                    Phone
+                                </label>
+                                <input type="tel"
+                                    class="w-full bg-transparent border-b border-brand-black/20 py-4 text-xl font-medium focus:outline-none focus:border-brand-black transition-colors"
+                                    placeholder="(XXX) XXX-XXXX">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-brand-gray">
+                                Message
+                            </label>
+                            <textarea rows="4"
+                                class="w-full bg-transparent border-b border-brand-black/20 py-4 text-xl font-medium focus:outline-none focus:border-brand-black transition-colors resize-none"
+                                placeholder="I'm interested in buying/selling..."></textarea>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="button"
+                                class="px-10 py-5 bg-brand-black rounded-full font-bold text-sm tracking-wide hover:bg-brand-gray transition-colors w-full md:w-auto text-white">
+                                SEND MESSAGE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-10 reveal-on-scroll">
+                    <div>
+                        <span class="block text-brand-gray text-sm mb-2">Email</span>
+                        <a data-cms-href-mailto="global.email" href="mailto:ciara.gadier@compass.com"
+                            class="text-lg font-bold hover:opacity-70">
+                            <span data-cms="global.email">ciara.gadier@compass.com</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="block text-brand-gray text-sm mb-4">Phone</span>
+                        <a data-cms-href-tel="global.phoneRaw" href="tel:8329284143"
+                            class="group bg-brand-black text-white px-8 py-4 rounded-full flex items-center gap-3 hover:bg-brand-gray transition-all hover:scale-105 animate-periodic-bounce">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-phone w-5 h-5">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                            <div class="text-left">
+                                <span
+                                    class="block text-[10px] font-bold uppercase tracking-widest opacity-70 leading-none mb-1"
+                                    data-cms="global.callLabel">Call Ciara Directly</span>
+                                <span class="text-sm font-bold" data-cms="global.phone">(832) 928-4143</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div>
+                        <span class="block text-brand-gray text-sm mb-2">Area</span>
+                        <p class="text-lg font-bold" data-cms="global.area">Metro Manila & Cebu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-brand-light py-10 px-6 md:px-12 bg-white">
+            <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <span class="text-2xl font-bold tracking-tighter block mb-2" data-cms="global.agentName">
+                        Ciara Gadier
+                    </span>
+                    <p class="text-brand-gray text-xs" data-cms="global.brokerage">JCBO Real Estate © 2024</p>
+                </div>
+                <div class="flex gap-8">
+                    <a data-cms-href="global.facebookUrl" href="#"
+                        class="text-brand-gray hover:text-brand-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            data-lucide="facebook" class="lucide lucide-facebook w-5 h-5">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a data-cms-href="global.instagramUrl" href="#"
+                        class="text-brand-gray hover:text-brand-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            data-lucide="instagram" class="lucide lucide-instagram w-5 h-5">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a data-cms-href="global.linkedinUrl" href="#"
+                        class="text-brand-gray hover:text-brand-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            data-lucide="linkedin" class="lucide lucide-linkedin w-5 h-5">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect width="4" height="12" x="2" y="9"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Viber Chat Widget -->
+    <div class="elfsight-app-88538ed9-a79c-4589-9791-f1e36142415f" data-elfsight-app-lazy></div>
+
+    <script>
+        // Iconify
+        lucide.createIcons();
+
+        // --- SCROLL ANIMATION OBSERVER ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        // Re-initialize observer on page change or load
+        function initObserver() {
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initObserver);
+
+        // --- NAVIGATION LOGIC ---
+        function navigateTo(pageId) {
+            window.scrollTo(0, 0);
+
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+                setTimeout(initObserver, 100);
+            }
+
+            // Reset Navbar for specific pages
+            const nav = document.getElementById('navbar');
+            if (nav) {
+                if (pageId === 'home') {
+                    nav.classList.remove('text-brand-dark', 'bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                    nav.classList.add('text-white');
+                } else {
+                    nav.classList.remove('text-white');
+                    nav.classList.add('text-brand-dark');
+                }
+            }
+        }
+
+        // --- NAVBAR SCROLL EFFECT (HOME PAGE) ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const homeSection = document.getElementById('home');
+
+            // Only apply scroll effect if we are on the home page
+            if (homeSection && homeSection.classList.contains('active')) {
+                if (window.scrollY > window.innerHeight - 100) {
+                    nav.classList.remove('text-white');
+                    nav.classList.add('text-brand-dark', 'bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                } else {
+                    nav.classList.add('text-white');
+                    nav.classList.remove('text-brand-dark', 'bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                }
+            }
+        });
+
+        // --- MOBILE MENU ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+
+            if (menu) {
+                if (menu.classList.contains('opacity-0')) {
+                    // Open Menu
+                    menu.classList.remove('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = 'hidden';
+                    if (icon) icon.classList.add('text-white');
+                } else {
+                    // Close Menu
+                    menu.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // --- CMS CONTENT LOADING ---
+        async function loadCMS() {
+            try {
+                const res = await fetch('/api/content');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                // Helper to get nested value
+                function getVal(obj, path) {
+                    return path.split('.').reduce((o, k) => (o && o[k] !== undefined) ? o[k] : null, obj);
+                }
+
+                // Text content
+                document.querySelectorAll('[data-cms]').forEach(el => {
+                    const val = getVal(data, el.dataset.cms);
+                    if (val !== null) el.textContent = val;
+                });
+
+                // Images
+                document.querySelectorAll('[data-cms-img]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsImg);
+                    if (val) el.src = val;
+                });
+
+                // Alt text
+                document.querySelectorAll('[data-cms-alt]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsAlt);
+                    if (val) el.alt = val;
+                });
+
+                // Phone links (tel:)
+                document.querySelectorAll('[data-cms-href-tel]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsHrefTel);
+                    if (val) el.href = 'tel:' + val;
+                });
+
+                // Email links (mailto:)
+                document.querySelectorAll('[data-cms-href-mailto]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsHrefMailto);
+                    if (val) el.href = 'mailto:' + val;
+                });
+
+                // Generic href (social links etc.)
+                document.querySelectorAll('[data-cms-href]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsHref);
+                    if (val) el.href = val;
+                });
+
+                // Page title
+                const titleEl = document.querySelector('[data-cms-title]');
+                if (titleEl) {
+                    const val = getVal(data, titleEl.dataset.cmsTitle);
+                    if (val) document.title = val;
+                }
+
+                // Form email action (sets action="mailto:email")
+                document.querySelectorAll('[data-cms-form-email]').forEach(el => {
+                    const val = getVal(data, el.dataset.cmsFormEmail);
+                    if (val) el.action = 'mailto:' + val;
+                });
+
+                // --- DYNAMIC LISTINGS ---
+                // Home page preview cards
+                const previewGrid = document.getElementById('listings-preview-grid');
+                if (previewGrid && data.listingsPreview) {
+                    previewGrid.innerHTML = data.listingsPreview.map((item, i) => `
+                        <div class="group cursor-pointer reveal-on-scroll${i > 0 ? ' delay-' + (i * 100) : ''}" onclick="navigateTo('listings')">
+                            <div class="aspect-[4/5] overflow-hidden mb-6 bg-brand-light rounded-lg">
+                                <img src="${item.image || ''}" alt="${item.imageAlt || 'Property'}"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            </div>
+                            <div class="flex justify-between items-center border-t border-brand-light pt-4">
+                                <h3 class="text-lg font-semibold tracking-tight">${item.name || ''}</h3>
+                                <span class="text-xs font-medium text-brand-gray uppercase">${item.price || ''}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Listings page secondary grid
+                const secGrid = document.getElementById('secondary-listings-grid');
+                if (secGrid && data.listings && data.listings.secondary) {
+                    secGrid.innerHTML = data.listings.secondary.map((item, i) => {
+                        const statusBg = (item.status || '').toLowerCase() === 'sold' || (item.status || '').toLowerCase() === 'active'
+                            ? 'bg-brand-black text-white' : 'bg-white text-black';
+                        return `
+                        <div class="group hover:opacity-100 transition-opacity duration-500 cursor-pointer reveal-on-scroll${i > 0 ? ' delay-' + (i * 100) : ''}">
+                            <div class="relative aspect-[3/2] bg-brand-light overflow-hidden mb-8 grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <img src="${item.image || ''}" alt="${item.address || 'Property'}"
+                                    class="w-full h-full object-cover mix-blend-multiply opacity-70 group-hover:opacity-100 transition-opacity">
+                                <div class="absolute top-6 left-6 z-10">
+                                    <span class="inline-flex items-center px-4 py-1.5 rounded-full ${statusBg} text-xs font-bold uppercase tracking-wider shadow-sm">
+                                        ${item.status || ''}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-brand-gray uppercase tracking-widest mb-2 block">${item.location || ''}</span>
+                                <h3 class="text-3xl font-semibold tracking-tight mb-3 text-brand-dark">${item.address || ''}</h3>
+                                <p class="text-brand-gray text-sm max-w-sm leading-relaxed">${item.description || ''}</p>
+                                <p class="mt-4 font-bold text-lg">${item.price || ''}</p>
+                            </div>
+                        </div>
+                    `}).join('');
+                }
+
+                // Re-init scroll observer for new dynamic elements
+                setTimeout(initObserver, 100);
+
+            } catch (e) {
+                // CMS not available — site works fine with static content
+                console.log('CMS: using static content');
+            }
+        }
+
+        // Load CMS content on page load
+        window.addEventListener('load', loadCMS);
+    </script>
+</body>
+
+</html>

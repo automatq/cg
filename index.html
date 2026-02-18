@@ -14,6 +14,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <script src="https://elfsightcdn.com/platform.js" async></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0a0a0a',
+                            light: '#f4f4f5',
+                            white: '#ffffff',
+                            gray: '#a1a1aa',
+                            black: '#000000',
+                            accent: '#d4d4d8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Sofia Pro', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         body {
@@ -191,40 +212,6 @@
             </button>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu"
-            class="fixed inset-0 bg-brand-dark z-[70] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-500 md:hidden">
-            <button class="absolute top-6 right-6 text-white hover:opacity-70 transition-opacity" onclick="toggleMobileMenu()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-x">
-                    <path d="M18 6 6 18"></path>
-                    <path d="m6 6 12 12"></path>
-                </svg>
-            </button>
-            <nav class="flex flex-col gap-10 text-center">
-                <button onclick="navigateTo('home'); toggleMobileMenu()"
-                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
-                    Home
-                </button>
-                <button onclick="navigateTo('about'); toggleMobileMenu()"
-                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
-                    Profile
-                </button>
-                <button onclick="navigateTo('listings'); toggleMobileMenu()"
-                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
-                    Properties
-                </button>
-                <button onclick="navigateTo('compass'); toggleMobileMenu()"
-                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
-                    JBCO
-                </button>
-                <button onclick="navigateTo('contact'); toggleMobileMenu()"
-                    class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
-                    Contact
-                </button>
-            </nav>
-        </div>
     </nav>
 
     <!-- Main Content Area -->
@@ -848,6 +835,42 @@
             </div>
         </footer>
     </main>
+
+    <!-- Mobile Menu Overlay (Moved outside Nav to ensure full coverage and correct z-stacking) -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-brand-dark z-[100] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-500 md:hidden">
+        <button class="absolute top-8 right-6 text-white hover:opacity-70 transition-opacity p-2"
+            onclick="toggleMobileMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-x">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+            </svg>
+        </button>
+        <nav class="flex flex-col gap-10 text-center">
+            <button onclick="navigateTo('home'); toggleMobileMenu()"
+                class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                Home
+            </button>
+            <button onclick="navigateTo('about'); toggleMobileMenu()"
+                class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                Profile
+            </button>
+            <button onclick="navigateTo('listings'); toggleMobileMenu()"
+                class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                Properties
+            </button>
+            <button onclick="navigateTo('compass'); toggleMobileMenu()"
+                class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                JBCO
+            </button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu()"
+                class="text-4xl font-medium tracking-tight transition-colors text-white hover:text-white/60">
+                Contact
+            </button>
+        </nav>
+    </div>
 
     <!-- Viber Chat Widget -->
     <div class="elfsight-app-88538ed9-a79c-4589-9791-f1e36142415f" data-elfsight-app-lazy></div>

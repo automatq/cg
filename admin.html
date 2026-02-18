@@ -499,22 +499,14 @@
             const file = input.files[0];
             if (!file) return;
 
-            // Convert to base64 for Vercel serverless compatibility
-            const base64 = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
+            const formData = new FormData();
+            formData.append('image', file);
 
             try {
                 const res = await fetch('/api/upload', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-admin-password': password()
-                    },
-                    body: JSON.stringify({ image: base64 })
+                    headers: { 'x-admin-password': password() },
+                    body: formData
                 });
                 const data = await res.json();
                 if (data.url) {

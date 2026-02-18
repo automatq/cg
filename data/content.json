@@ -1,13 +1,13 @@
 {
   "global": {
-    "siteTitle": "Ciara Gadier | JCBO Real Estate",
+    "siteTitle": "Ciara Gadier | JBCO Real Estate",
     "agentName": "Ciara Gadier",
     "agentFirstName": "ciara",
     "agentLastName": "gadier_",
     "phone": "(832) 928-4143",
     "phoneRaw": "09564113700",
     "email": "ciara.gadier@compass.com",
-    "brokerage": "JCBO Real Estate",
+    "brokerage": "JBCO Real Estate",
     "area": "Metro Manila & Cebu",
     "callLabel": "Call Ciara Directly",
     "facebookUrl": "https://www.facebook.com/",
@@ -130,20 +130,20 @@
     ]
   },
   "compass": {
-    "headline": "JCBO",
+    "headline": "JBCO",
     "headlineAccent": "Advantage.",
-    "description": "Ciara Gadier is proud to be a broker associate with JCBO, redefining the buying and selling experience through technology and reach.",
+    "description": "Ciara Gadier is proud to be a broker associate with JBCO, redefining the buying and selling experience through technology and reach.",
     "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
-    "imageAlt": "JCBO Strategy",
+    "imageAlt": "JBCO Strategy",
     "subheadline": "Technology + Tradition.",
     "body": "We pair the industry's top talent with technology to make the search and sell experience intelligent and seamless.",
     "features": [
       {
-        "title": "JCBO Concierge",
+        "title": "JBCO Concierge",
         "description": "Fronts the cost of home improvement services with no interest or fees."
       },
       {
-        "title": "JCBO Lens",
+        "title": "JBCO Lens",
         "description": "AI-driven insights to price your home accurately."
       },
       {

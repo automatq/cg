@@ -7,8 +7,8 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '111825';
-const CONTENT_FILE = path.join(__dirname, 'content.json');
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const CONTENT_FILE = path.join(__dirname, 'data', 'content.json');
+const UPLOADS_DIR = path.join(__dirname, 'data', 'uploads');
 
 // Ensure uploads directory exists
 if (!fs.existsSync(UPLOADS_DIR)) {
